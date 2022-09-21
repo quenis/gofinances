@@ -24,6 +24,7 @@ import {
   TransactionList,
   LoadContainer,
 } from "./styles";
+import { useAuth } from "../../hooks/auth";
 
 export interface DataListProps extends TransactionCardProps {
   id: string;
@@ -48,6 +49,7 @@ export function Dashboard() {
   );
 
   const theme = useTheme();
+  const { signOut, user } = useAuth();
 
   function getLastTransactioDate(
     collection: DataListProps[],
@@ -170,16 +172,16 @@ export function Dashboard() {
               <UserInfo>
                 <Photo
                   source={{
-                    uri: "https://avatars.githubusercontent.com/u/45827947?v=4",
+                    uri: user.photo,
                   }}
                 ></Photo>
                 <User>
                   <UserGreetings>Olá,</UserGreetings>
-                  <UserName>Rodrigo</UserName>
+                  <UserName>{user.name}</UserName>
                 </User>
               </UserInfo>
 
-              <Icon name="power" onPress={() => {}}></Icon>
+              <Icon name="power" onPress={signOut}></Icon>
             </UserWrapper>
           </Header>
 
